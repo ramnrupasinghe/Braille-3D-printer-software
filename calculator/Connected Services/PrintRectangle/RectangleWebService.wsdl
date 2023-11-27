@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://pragimtech.com/webservices" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://pragimtech.com/webservices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://pragimtech.com/webservices">
+      <s:element name="Rectangle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sideOne" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="sideTwo" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RectangleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RectangleResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RectangleSoapIn">
+    <wsdl:part name="parameters" element="tns:Rectangle" />
+  </wsdl:message>
+  <wsdl:message name="RectangleSoapOut">
+    <wsdl:part name="parameters" element="tns:RectangleResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RectangleWebServiceSoap">
+    <wsdl:operation name="Rectangle">
+      <wsdl:input message="tns:RectangleSoapIn" />
+      <wsdl:output message="tns:RectangleSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RectangleWebServiceSoap" type="tns:RectangleWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Rectangle">
+      <soap:operation soapAction="http://pragimtech.com/webservices/Rectangle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RectangleWebServiceSoap12" type="tns:RectangleWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Rectangle">
+      <soap12:operation soapAction="http://pragimtech.com/webservices/Rectangle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RectangleWebService">
+    <wsdl:port name="RectangleWebServiceSoap" binding="tns:RectangleWebServiceSoap">
+      <soap:address location="https://localhost:44305/RectangleWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RectangleWebServiceSoap12" binding="tns:RectangleWebServiceSoap12">
+      <soap12:address location="https://localhost:44305/RectangleWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
